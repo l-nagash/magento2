@@ -6,16 +6,16 @@ php:
 env:
   - TEST_SUITE=unit
   - TEST_SUITE=integration TEST_SUITE_INT=int_00
-  - TEST_SUITE=integration TEST_SUITE_INT=int_01
-  - TEST_SUITE=integration TEST_SUITE_INT=int_02
-  - TEST_SUITE=integration TEST_SUITE_INT=int_03
-  - TEST_SUITE=integration TEST_SUITE_INT=int_04
-  - TEST_SUITE=integration TEST_SUITE_INT=int_05
-  - TEST_SUITE=integration TEST_SUITE_INT=int_06
-  - TEST_SUITE=integration TEST_SUITE_INT=int_07
-  - TEST_SUITE=integration TEST_SUITE_INT=int_08
-  - TEST_SUITE=integration TEST_SUITE_INT=int_09
-  - TEST_SUITE=integration TEST_SUITE_INT=int_10
+#  - TEST_SUITE=integration TEST_SUITE_INT=int_01
+#  - TEST_SUITE=integration TEST_SUITE_INT=int_02
+#  - TEST_SUITE=integration TEST_SUITE_INT=int_03
+#  - TEST_SUITE=integration TEST_SUITE_INT=int_04
+#  - TEST_SUITE=integration TEST_SUITE_INT=int_05
+#  - TEST_SUITE=integration TEST_SUITE_INT=int_06
+#  - TEST_SUITE=integration TEST_SUITE_INT=int_07
+#  - TEST_SUITE=integration TEST_SUITE_INT=int_08
+#  - TEST_SUITE=integration TEST_SUITE_INT=int_09
+#  - TEST_SUITE=integration TEST_SUITE_INT=int_10
   - TEST_SUITE=integration TEST_SUITE_INT=int_11
 #  - TEST_SUITE=integration_integrity
 #  - TEST_SUITE=static_phpcs
@@ -40,12 +40,12 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y -qq postfix
 before_script:
-  - sudo apt-get remove --purge mysql-common mysql-server-5.5 mysql-server-core-5.5 mysql-client-5.5 mysql-client-core-5.5
+  - sudo apt-get remove --purge mysql-common mysql-server-5.5 mysql-server-core-5.5 mysql-client-5.5 mysql-client-core-5.5 hhvm
   - sudo apt-get autoremove
   - sudo apt-get autoclean
   - sudo apt-add-repository ppa:ondrej/mysql-5.6 -y
   - sudo apt-get update
-  - sudo apt-get install mysql-server-5.6 mysql-client-5.6
+  - sudo apt-get install mysql-server-5.6 mysql-client-5.6 hhvm-dbg
   - mysql -uroot -e "SET @@global.sql_mode = NO_ENGINE_SUBSTITUTION"
   # mock mail
   - sudo service postfix stop
@@ -55,7 +55,7 @@ before_script:
   # Install tools for static tests
   - bash -c "if [ '$TEST_SUITE' == 'static_phpcs' ] || [ '$TEST_SUITE' == 'static_annotation' ]; then composer global require "squizlabs/php_codesniffer=1.5.2"; fi"
   # Change memmory_limit for travis server
-  # - sh -c "if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cat $TRAVIS_BUILD_DIR/dev/travis/php.ini >> /etc/hhvm/php.ini; fi"
+  - if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then sudo cat $TRAVIS_BUILD_DIR/dev/travis/php.ini >> /etc/hhvm/php.ini; fi
   # - if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cat /etc/hhvm/php.ini; fi
   - bash -c "if [ '$TRAVIS_PHP_VERSION' != 'hhvm' ]; then cat $TRAVIS_BUILD_DIR/dev/travis/php.sh | bash; fi"
   - phpenv rehash;
