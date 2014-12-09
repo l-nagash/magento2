@@ -98,7 +98,6 @@
             <directory suffix="Test.php">testsuite/Magento/Payment</directory>
             <directory suffix="Test.php">testsuite/Magento/Paypal</directory>
             <directory suffix="Test.php">testsuite/Magento/Persistent</directory>
-            <directory suffix="Test.php">testsuite/Magento/ProductAlert</directory>
             <directory suffix="Test.php">testsuite/Magento/RecurringPayment</directory>
         </testsuite>
         <testsuite name="int_08">
@@ -129,6 +128,9 @@
             <directory suffix="Test.php">testsuite/Magento/Weee</directory>
             <directory suffix="Test.php">testsuite/Magento/Widget</directory>
             <directory suffix="Test.php">testsuite/Magento/Wishlist</directory>
+        </testsuite>
+        <testsuite name="int_11">
+            <directory suffix="Test.php">testsuite/Magento/ProductAlert</directory>
         </testsuite>
     </testsuites>
     <!-- Code coverage filters -->
