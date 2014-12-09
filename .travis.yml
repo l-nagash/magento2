@@ -55,7 +55,9 @@ before_script:
   # Install tools for static tests
   - bash -c "if [ '$TEST_SUITE' == 'static_phpcs' ] || [ '$TEST_SUITE' == 'static_annotation' ]; then composer global require "squizlabs/php_codesniffer=1.5.2"; fi"
   # Change memmory_limit for travis server
-  - if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then sudo cat $TRAVIS_BUILD_DIR/dev/travis/php.ini >> /etc/hhvm/php.ini; fi
+  - if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ] && [ 'TEST_SUITE_INT' == 'int_00' ]; then sudo cat $TRAVIS_BUILD_DIR/dev/travis/php.ini >> ~/.phpenv/versions/$(phpenv version-name)/php.ini; fi
+  - if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ] && [ 'TEST_SUITE_INT' == 'int_11' ]; then sudo cat $TRAVIS_BUILD_DIR/dev/travis/php.ini >> ~/.phpenv/versions/$(phpenv version-name)/bin/php.ini; fi
+  # - if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then sudo cat $TRAVIS_BUILD_DIR/dev/travis/php.ini >> /etc/hhvm/php.ini; fi
   # - if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cat /etc/hhvm/php.ini; fi
   - bash -c "if [ '$TRAVIS_PHP_VERSION' != 'hhvm' ]; then cat $TRAVIS_BUILD_DIR/dev/travis/php.sh | bash; fi"
   - phpenv rehash;
