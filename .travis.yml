@@ -49,8 +49,8 @@ before_script:
   - bash -c "if [ '$TEST_SUITE' == 'integration' ] || [ '$TEST_SUITE' == 'integration_integrity' ]; then mysql -e 'create database magento_integration_tests;'; mv dev/tests/integration/etc/install-config-mysql.travis.php.dist dev/tests/integration/etc/install-config-mysql.php; fi"
   # Install tools for static tests
   - bash -c "if [ '$TEST_SUITE' == 'static_phpcs' ] || [ '$TEST_SUITE' == 'static_annotation' ]; then composer global require "squizlabs/php_codesniffer=1.5.2"; fi"
-  - if [[ '$TRAVIS_PHP_VERSION' == 'hhvm' ]]; then sudo bash $TRAVIS_BUILD_DIR/dev/travis/hhvm.sh; fi;
-  - if [[ '$TRAVIS_PHP_VERSION' != 'hhvm' ]]; then sudo bash $TRAVIS_BUILD_DIR/dev/travis/php.sh; fi;
+  - bash -c "if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then sudo bash $TRAVIS_BUILD_DIR/dev/travis/hhvm.sh; fi;"
+  - bash -c "if [ '$TRAVIS_PHP_VERSION' != 'hhvm' ]; then sudo bash $TRAVIS_BUILD_DIR/dev/travis/php.sh; fi;"
   - phpenv rehash;
   - composer install --no-interaction --prefer-source --dev
   - if [ '$TEST_SUITE' != 'unit' ]; then cd setup; composer install --no-interaction --prefer-source --dev; cd ..; fi
