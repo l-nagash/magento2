@@ -5,7 +5,7 @@ php:
   - hhvm
 env:
   - TEST_SUITE=unit
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_00
+  - TEST_SUITE=integration TEST_SUITE_INT=int_00
 #  - TEST_SUITE=integration TEST_SUITE_INT=int_01
 #  - TEST_SUITE=integration TEST_SUITE_INT=int_02
 #  - TEST_SUITE=integration TEST_SUITE_INT=int_03
