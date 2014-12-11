@@ -4,22 +4,23 @@ php:
   #- 5.5
   - hhvm
 env:
-  - TEST_SUITE=unit
+  - TEST_SUITE=unit TEST_SUITE_UNIT=unit_01
+  - TEST_SUITE=unit TEST_SUITE_UNIT=unit_02
   - TEST_SUITE=integration TEST_SUITE_INT=int_00
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_01
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_02
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_03
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_04
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_05
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_06
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_07
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_08
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_09
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_10
-#  - TEST_SUITE=integration TEST_SUITE_INT=int_11
-#  - TEST_SUITE=integration_integrity
-#  - TEST_SUITE=static_phpcs
-#  - TEST_SUITE=static_annotation
+  - TEST_SUITE=integration TEST_SUITE_INT=int_01
+  - TEST_SUITE=integration TEST_SUITE_INT=int_02
+  - TEST_SUITE=integration TEST_SUITE_INT=int_03
+  - TEST_SUITE=integration TEST_SUITE_INT=int_04
+  - TEST_SUITE=integration TEST_SUITE_INT=int_05
+  - TEST_SUITE=integration TEST_SUITE_INT=int_06
+  - TEST_SUITE=integration TEST_SUITE_INT=int_07
+  - TEST_SUITE=integration TEST_SUITE_INT=int_08
+  - TEST_SUITE=integration TEST_SUITE_INT=int_09
+  - TEST_SUITE=integration TEST_SUITE_INT=int_10
+  - TEST_SUITE=integration TEST_SUITE_INT=int_11
+  - TEST_SUITE=integration_integrity
+  - TEST_SUITE=static_phpcs
+  - TEST_SUITE=static_annotation
 matrix:
   allow_failures:
     - php: hhvm
@@ -58,7 +59,8 @@ script:
   - php --version
   - grep ext_entity_whitelist /etc/hhvm/php.ini
   # Unit tests
-  - bash -c "if [ '$TEST_SUITE' == 'unit' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cat $TRAVIS_BUILD_DIR/dev/travis/hhvm/unit.sh | bash; fi"
+  - bash -c "if [ '$TEST_SUITE_UNIT' == 'unit_01' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cat $TRAVIS_BUILD_DIR/dev/travis/hhvm/unit.sh | bash; fi"
+  - bash -c "if [ '$TEST_SUITE_UNIT' == 'unit_02' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then ./vendor/bin/phpunit -c $TRAVIS_BUILD_DIR/dev/tests/unit/phpunit.xml.dist; fi"
   - bash -c "if [ '$TEST_SUITE' == 'unit' ] && [ '$TRAVIS_PHP_VERSION' != 'hhvm' ]; then ./vendor/bin/phpunit -c $TRAVIS_BUILD_DIR/dev/tests/unit/phpunit.xml.dist; fi"
   # Integration tests
   - bash -c "if [ '$TEST_SUITE' == 'integration' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cat $TRAVIS_BUILD_DIR/dev/travis/hhvm/integration.sh | bash; fi"
