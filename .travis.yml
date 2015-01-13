@@ -79,7 +79,8 @@ before_script:
   - bash -c "if [ '$TEST_SUITE' == 'functional' ]; then sudo bash $TRAVIS_BUILD_DIR/dev/travis/install-firefox.sh; fi"
 script:
   # Unit tests
-  - bash -c "if [ '$TEST_SUITE_UNIT' == 'unit_01' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cd ./dev/tests/unit/; ls -dX ./testsuite/Magento/* | grep -v _files | parallel --gnu -P 3 'echo \"Running {} tests\"; hhvm -c ${TRAVIS_BUILD_DIR}/dev/travis/php.ini -v Eval.Jit=1 -f ${TRAVIS_BUILD_DIR}/vendor/phpunit/phpunit/phpunit -- --configuration ./phpunit.xml.dist {};' || exit 1; fi"
+  - bash -c "if [ '$TEST_SUITE_UNIT' == 'unit_01' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cd ./dev/tests/unit/; ls -dX ./testsuite/Magento/* | grep -v _files  | grep -v Framework | parallel --gnu -P 3 'echo \"Running {} tests\"; hhvm -c ${TRAVIS_BUILD_DIR}/dev/travis/php.ini -v Eval.Jit=1 -f ${TRAVIS_BUILD_DIR}/vendor/phpunit/phpunit/phpunit -- --configuration ./phpunit.xml.dist {};' || exit 1; fi"
+  - bash -c "if [ '$TEST_SUITE_UNIT' == 'unit_01' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cd ./dev/tests/unit/; ls -dX ./testsuite/Magento/Framework/* | grep -v _files  | grep -v parallel --gnu -P 3 'echo \"Running {} tests\"; hhvm -c ${TRAVIS_BUILD_DIR}/dev/travis/php.ini -v Eval.Jit=1 -f ${TRAVIS_BUILD_DIR}/vendor/phpunit/phpunit/phpunit -- --configuration ./phpunit.xml.dist {};' || exit 1; fi"
   - bash -c "if [ '$TEST_SUITE_UNIT' == 'unit_02' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then ./vendor/bin/phpunit --log-json /tmp/unit.json --testdox-html /tmp/unit.html -c $TRAVIS_BUILD_DIR/dev/tests/unit/phpunit.xml.dist; fi"
   - bash -c "if [ '$TEST_SUITE' == 'unit' ] && [ '$TRAVIS_PHP_VERSION' != 'hhvm' ]; then cd ./dev/tests/unit/; ls -dX ./testsuite/Magento/* | grep -v _files | parallel --gnu -P 3 'echo \"Running {} tests\"; php -f ${TRAVIS_BUILD_DIR}/vendor/phpunit/phpunit/phpunit -- --configuration ./phpunit.xml.dist {};' || exit 1; fi"
   # Integration tests
