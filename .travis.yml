@@ -4,6 +4,7 @@ php:
 #  - 5.5
 #  - 5.6
   - hhvm
+  - hhvm-nightly
 env:
   matrix:
     - TEST_SUITE=unit TEST_SUITE_UNIT=unit_01 NEED_DB=false
@@ -29,6 +30,7 @@ matrix:
   allow_failures:
     - php: hhvm
     - php: 5.6
+    - php: hhvm-nightly
   exclude:
     - php: 5.4
       env: TEST_SUITE=static_phpcs
@@ -41,6 +43,12 @@ matrix:
     - php: hhvm
       env: TEST_SUITE=static_annotation
     - php: hhvm
+      env: TEST_SUITE=integration_integrity
+    - php: hhvm-nightly
+      env: TEST_SUITE=static_phpcs
+    - php: hhvm-nightly
+      env: TEST_SUITE=static_annotation
+    - php: hhvm-nightly
       env: TEST_SUITE=integration_integrity
     - php: 5.6
       env: TEST_SUITE=static_phpcs
@@ -67,8 +75,8 @@ before_script:
   # Create DB for Integration tests
   - if [[ "$NEED_DB" == "true" ]]; then mysql -e 'create database magento_integration_tests;'; mv dev/tests/integration/etc/install-config-mysql.travis.php.dist dev/tests/integration/etc/install-config-mysql.php; fi
   - bash -c "if [ '$TEST_SUITE' == 'static_phpcs' ] || [ '$TEST_SUITE' == 'static_annotation' ]; then composer global require "squizlabs/php_codesniffer=1.5.2"; fi"
-  - bash -c "if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then sudo bash $TRAVIS_BUILD_DIR/dev/travis/hhvm.sh; fi;"
-  - bash -c "if [ '$TRAVIS_PHP_VERSION' != 'hhvm' ]; then sudo bash $TRAVIS_BUILD_DIR/dev/travis/php.sh; fi;"
+  - bash -c "if [ '$TRAVIS_PHP_VERSION' == 'hhvm' ] || [ '$TRAVIS_PHP_VERSION' == 'hhvm-nightly' ] ; then sudo bash $TRAVIS_BUILD_DIR/dev/travis/hhvm.sh; fi;"
+  - bash -c "if [ '$TRAVIS_PHP_VERSION' != 'hhvm' ] && [ '$TRAVIS_PHP_VERSION' != 'hhvm-nightly' ] ; then sudo bash $TRAVIS_BUILD_DIR/dev/travis/php.sh; fi;"
   - phpenv rehash;
   - composer install --no-interaction --prefer-source --dev >&2> /dev/null; if [[ $? -ne 0 ]]; then exit $?; fi
   - export DISPLAY=:99.0
@@ -82,7 +90,8 @@ script:
   - bash -c "if [ '$TEST_SUITE_UNIT' == 'unit_01' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cd ./dev/tests/unit/; ls -dX ./testsuite/Magento/* | grep -v _files  | grep -v Framework | parallel --gnu -P 3 'echo \"Running {} tests\"; hhvm -c ${TRAVIS_BUILD_DIR}/dev/travis/php.ini -v Eval.Jit=1 -f ${TRAVIS_BUILD_DIR}/vendor/phpunit/phpunit/phpunit -- --configuration ./phpunit.xml.dist {};' || exit 1; fi"
   - bash -c "if [ '$TEST_SUITE_UNIT' == 'unit_01' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cd ./dev/tests/unit/; ls -dX ./testsuite/Magento/Framework/* | grep -v _files | parallel --gnu -P 3 'echo \"Running {} tests\"; hhvm -c ${TRAVIS_BUILD_DIR}/dev/travis/php.ini -v Eval.Jit=1 -f ${TRAVIS_BUILD_DIR}/vendor/phpunit/phpunit/phpunit -- --configuration ./phpunit.xml.dist {};' || exit 1; fi"
   - bash -c "if [ '$TEST_SUITE_UNIT' == 'unit_02' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then ./vendor/bin/phpunit --log-json /tmp/unit.json --testdox-html /tmp/unit.html -c $TRAVIS_BUILD_DIR/dev/tests/unit/phpunit.xml.dist; fi"
-  - bash -c "if [ '$TEST_SUITE' == 'unit' ] && [ '$TRAVIS_PHP_VERSION' != 'hhvm' ]; then cd ./dev/tests/unit/; ls -dX ./testsuite/Magento/* | grep -v _files | parallel --gnu -P 3 'echo \"Running {} tests\"; php -f ${TRAVIS_BUILD_DIR}/vendor/phpunit/phpunit/phpunit -- --configuration ./phpunit.xml.dist {};' || exit 1; fi"
+  - bash -c "if [ '$TEST_SUITE_UNIT' == 'unit_02' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm-nightly' ]; then ./vendor/bin/phpunit --log-json /tmp/unit.json --testdox-html /tmp/unit.html -c $TRAVIS_BUILD_DIR/dev/tests/unit/phpunit.xml.dist; fi"
+  - bash -c "if [ '$TEST_SUITE' == 'unit' ] && [ '$TRAVIS_PHP_VERSION' != 'hhvm' ] && [ '$TRAVIS_PHP_VERSION' != 'hhvm-nightly' ]; then cd ./dev/tests/unit/; ls -dX ./testsuite/Magento/* | grep -v _files | parallel --gnu -P 3 'echo \"Running {} tests\"; php -f ${TRAVIS_BUILD_DIR}/vendor/phpunit/phpunit/phpunit -- --configuration ./phpunit.xml.dist {};' || exit 1; fi"
   # Integration tests
   - bash -c "if [ '$TEST_SUITE' == 'integration' ] && [ '$TRAVIS_PHP_VERSION' == 'hhvm' ]; then cat $TRAVIS_BUILD_DIR/dev/travis/hhvm/integration.sh | bash; fi"
   - bash -c "if [ '$TEST_SUITE' == 'integration' ] && [ '$TRAVIS_PHP_VERSION' != 'hhvm' ]; then cd dev/tests/integration/; $TRAVIS_BUILD_DIR/vendor/bin/phpunit -c phpunit.xml.dist; fi"
