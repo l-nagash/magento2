@@ -1,0 +1,51 @@
+Server {
+    Port = 80
+        SourceRoot = {{rootPath}}
+        DefaultDocument = index.php
+}
+
+Eval {
+    Jit = true
+}
+
+VirtualHost {
+    * {
+        Pattern = .*
+            RewriteRules {
+                js {
+                    pattern = js/index.php/.*
+                        to = js/index.php
+                        qsa = true
+                }
+                default {
+                    pattern = .*
+                        to = index.php
+                        qsa = true
+                }
+            }
+    }
+}
+
+StaticFile {
+    FilesMatch {
+        * {
+            pattern = .*\.(dll|exe)
+                headers {
+                    * = Content-Disposition: attachment
+                }
+        }
+    }
+    Extensions {
+        css = text/css
+        gif = image/gif
+        html = text/html
+        jpe = image/jpeg
+        jpeg = image/jpeg
+        jpg = image/jpeg
+        png = image/png
+        tif = image/tiff
+        tiff = image/tiff
+        txt = text/plain
+        js = application/javascript
+    }
+}

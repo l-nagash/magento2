@@ -15,10 +15,103 @@
         <!--<testsuite name="Memory Usage Tests">-->
             <!--<file>testsuite/Magento/MemoryUsageTest.php</file>-->
         <!--</testsuite>-->
-        <testsuite name="Magento Integration Tests">
+        <testsuite name="int_00">
             <directory suffix="Test.php">testsuite</directory>
             <exclude>testsuite/Magento/Test/Integrity</exclude>
             <exclude>testsuite/Magento/MemoryUsageTest.php</exclude>
+        </testsuite>
+        <testsuite name="int_01">
+            <directory suffix="Test.php">testsuite/Magento/AdminNotification</directory>
+            <directory suffix="Test.php">testsuite/Magento/Authorization</directory>
+            <directory suffix="Test.php">testsuite/Magento/Authorizenet</directory>
+            <directory suffix="Test.php">testsuite/Magento/Backend</directory>
+            <directory suffix="Test.php">testsuite/Magento/Bundle</directory>
+            <directory suffix="Test.php">testsuite/Magento/Captcha</directory>
+        </testsuite>
+        <testsuite name="int_02">
+            <directory suffix="Test.php">testsuite/Magento/Catalog</directory>
+            <directory suffix="Test.php">testsuite/Magento/CatalogImportExport</directory>
+        </testsuite>
+        <testsuite name="int_03">
+            <directory suffix="Test.php">testsuite/Magento/CatalogInventory</directory>
+            <directory suffix="Test.php">testsuite/Magento/CatalogRule</directory>
+            <directory suffix="Test.php">testsuite/Magento/CatalogSearch</directory>
+            <directory suffix="Test.php">testsuite/Magento/CatalogUrlRewrite</directory>
+            <directory suffix="Test.php">testsuite/Magento/Centinel</directory>
+            <directory suffix="Test.php">testsuite/Magento/Checkout</directory>
+            <directory suffix="Test.php">testsuite/Magento/CheckoutAgreements</directory>
+            <directory suffix="Test.php">testsuite/Magento/Cms</directory>
+        </testsuite>
+        <testsuite name="int_04">
+            <directory suffix="Test.php">testsuite/Magento/ConfigurableProduct</directory>
+            <directory suffix="Test.php">testsuite/Magento/Contact</directory>
+            <directory suffix="Test.php">testsuite/Magento/Core</directory>
+            <directory suffix="Test.php">testsuite/Magento/Cron</directory>
+            <directory suffix="Test.php">testsuite/Magento/CurrencySymbol</directory>
+            <directory suffix="Test.php">testsuite/Magento/Customer</directory>
+            <directory suffix="Test.php">testsuite/Magento/CustomerImportExport</directory>
+            <directory suffix="Test.php">testsuite/Magento/DesignEditor</directory>
+        </testsuite>
+        <testsuite name="int_05">
+            <directory suffix="Test.php">testsuite/Magento/Dhl</directory>
+            <directory suffix="Test.php">testsuite/Magento/Directory</directory>
+            <directory suffix="Test.php">testsuite/Magento/Downloadable</directory>
+            <directory suffix="Test.php">testsuite/Magento/Eav</directory>
+            <directory suffix="Test.php">testsuite/Magento/Email</directory>
+            <directory suffix="Test.php">testsuite/Magento/Fedex</directory>
+            <directory suffix="Test.php">testsuite/Magento/Framework</directory>
+            <directory suffix="Test.php">testsuite/Magento/GiftMessage</directory>
+        </testsuite>
+        <testsuite name="int_06">
+            <directory suffix="Test.php">testsuite/Magento/GoogleAdwords</directory>
+            <directory suffix="Test.php">testsuite/Magento/GoogleShopping</directory>
+            <directory suffix="Test.php">testsuite/Magento/GroupedProduct</directory>
+            <directory suffix="Test.php">testsuite/Magento/ImportExport</directory>
+            <directory suffix="Test.php">testsuite/Magento/Indexer</directory>
+            <directory suffix="Test.php">testsuite/Magento/Integration</directory>
+            <directory suffix="Test.php">testsuite/Magento/Log</directory>
+            <directory suffix="Test.php">testsuite/Magento/Multishipping</directory>
+        </testsuite>
+        <testsuite name="int_07">
+            <directory suffix="Test.php">testsuite/Magento/Newsletter</directory>
+            <directory suffix="Test.php">testsuite/Magento/PageCache</directory>
+            <directory suffix="Test.php">testsuite/Magento/PayPalRecurringPayment</directory>
+            <directory suffix="Test.php">testsuite/Magento/Payment</directory>
+            <directory suffix="Test.php">testsuite/Magento/Paypal</directory>
+            <directory suffix="Test.php">testsuite/Magento/Persistent</directory>
+            <directory suffix="Test.php">testsuite/Magento/RecurringPayment</directory>
+        </testsuite>
+        <testsuite name="int_08">
+            <directory suffix="Test.php">testsuite/Magento/Reports</directory>
+            <directory suffix="Test.php">testsuite/Magento/Review</directory>
+            <directory suffix="Test.php">testsuite/Magento/Rule</directory>
+            <directory suffix="Test.php">testsuite/Magento/Sales</directory>
+            <directory suffix="Test.php">testsuite/Magento/SalesRule</directory>
+            <directory suffix="Test.php">testsuite/Magento/Sendfriend</directory>
+            <directory suffix="Test.php">testsuite/Magento/Shipping</directory>
+            <directory suffix="Test.php">testsuite/Magento/Sitemap</directory>
+        </testsuite>
+        <testsuite name="int_09">
+            <directory suffix="Test.php">testsuite/Magento/Store</directory>
+            <directory suffix="Test.php">testsuite/Magento/Tax</directory>
+            <directory suffix="Test.php">testsuite/Magento/TaxImportExport</directory>
+            <directory suffix="Test.php">testsuite/Magento/Test</directory>
+            <directory suffix="Test.php">testsuite/Magento/TestFixture</directory>
+            <directory suffix="Test.php">testsuite/Magento/Theme</directory>
+            <directory suffix="Test.php">testsuite/Magento/ToolkitFramework</directory>
+            <directory suffix="Test.php">testsuite/Magento/Translation</directory>
+        </testsuite>
+        <testsuite name="int_10">
+            <directory suffix="Test.php">testsuite/Magento/Ups</directory>
+            <directory suffix="Test.php">testsuite/Magento/UrlRewrite</directory>
+            <directory suffix="Test.php">testsuite/Magento/User</directory>
+            <directory suffix="Test.php">testsuite/Magento/Webapi</directory>
+            <directory suffix="Test.php">testsuite/Magento/Weee</directory>
+            <directory suffix="Test.php">testsuite/Magento/Widget</directory>
+            <directory suffix="Test.php">testsuite/Magento/Wishlist</directory>
+        </testsuite>
+        <testsuite name="int_11">
+            <directory suffix="Test.php">testsuite/Magento/ProductAlert</directory>
         </testsuite>
     </testsuites>
     <!-- Code coverage filters -->
