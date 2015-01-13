@@ -123,15 +123,9 @@ class BaseTest extends \PHPUnit_Framework_TestCase
             ->with('Magento\Sales\Model\Order\Total\AbstractTotal')
             ->will($this->returnValue($total));
 
-        $this->assertSame(
-            [
-                'no_order' => $total,
-                'equal_order' => $total,
-                'other_code' => $total,
-                'some_code' => $total,
-                'big_order' => $total,
-            ],
-            $this->object->getTotalModels()
-        );
+        $model = $this->object->getTotalModels();
+        foreach (['no_order', 'equal_order', 'other_code', 'some_code', 'big_order'] as $key) {
+            $this->assertSame($total, $model[$key]);
+        }
     }
 }
