@@ -21,14 +21,14 @@
             <exclude>testsuite/Magento/MemoryUsageTest.php</exclude>
         </testsuite>
         <testsuite name="int_01">
+            <directory suffix="Test.php">testsuite/Magento/Backend</directory>
+        </testsuite>
+        <testsuite name="int_02">
             <directory suffix="Test.php">testsuite/Magento/AdminNotification</directory>
             <directory suffix="Test.php">testsuite/Magento/Authorization</directory>
             <directory suffix="Test.php">testsuite/Magento/Authorizenet</directory>
-            <directory suffix="Test.php">testsuite/Magento/Backend</directory>
             <directory suffix="Test.php">testsuite/Magento/Bundle</directory>
             <directory suffix="Test.php">testsuite/Magento/Captcha</directory>
-        </testsuite>
-        <testsuite name="int_02">
             <directory suffix="Test.php">testsuite/Magento/Catalog</directory>
             <directory suffix="Test.php">testsuite/Magento/CatalogImportExport</directory>
         </testsuite>
